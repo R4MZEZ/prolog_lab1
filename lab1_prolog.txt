@@ -1,0 +1,75 @@
+spouses(georgeVI, elizabeth).
+spouses(philip, elizabethII).
+spouses(antony, margaret).
+spouses(charles, diana).
+spouses(charles, camilla).
+spouses(mark, anne).
+spouses(timothy, anne).
+spouses(andrew, sarah).
+spouses(edward, sophie).
+spouses(william, catherine).
+spouses(peter, autumn).
+spouses(mike, zara).
+spouses(X, Y) :- male(Y), \+ male(X), spouses(Y, X).
+
+parent(georgeVI, elizabethII).
+parent(elizabeth, elizabethII).
+parent(georgeVI, margaret).
+parent(elizabeth, margaret).
+parent(elizabethII, charles).
+parent(philip, charles).
+parent(elizabethII, anne).
+parent(philip, anne).
+parent(elizabethII, andrew).
+parent(philip, andrew).
+parent(elizabethII, edward).
+parent(philip, edward).
+parent(diana, william).
+parent(charles, william).
+parent(diana, harry).
+parent(charles, harry).
+parent(mark, peter).
+parent(anne, peter).
+parent(mark, zara).
+parent(anne, zara).
+parent(andrew, beatrice).
+parent(sarah, beatrice).
+parent(andrew, eugenie).
+parent(sarah, eugenie).
+parent(edward, louise).
+parent(sophie, louise).
+parent(edward, james).
+parent(sophie, james).
+parent(william, george).
+parent(catherine, george).
+parent(peter, savannah).
+parent(autumn, savannah).
+parent(peter, isla).
+parent(autumn, isla).
+male(georgeVI).
+male(philip).
+male(anthony).
+male(charles).
+male(mark).
+male(timothy).
+male(andrew).
+male(edward).
+male(william).
+male(harry).
+male(peter).
+male(mike).
+male(james).
+male(george).
+male(louis).
+
+
+wife(X) :- spouses(Y, X), male(Y).
+sibling(X,Y) :- parent(Z,X), male(Z), parent(Z,Y), X \= Y. 
+brother(X,Y) :- male(X), sibling(X,Y).
+uncle(X,Y) :- parent(Z,Y), sibling(X,Z), male(X).
+aunt(X,Y) :- parent(Z,Y), sibling(X,Z), \+ male(X).
+nephew(X,Y) :- male(X), sibling(Z,Y), parent(Z,X).
+niece(X,Y) :- \+ male(X), sibling(Z,Y), parent(Z,X).
+grandmother(X,Y) :- parent(Z,Y), parent(X,Z), \+ male(X).
+grandfather(X,Y) :- grandmother(Z,Y), spouses(X,Z).
+
